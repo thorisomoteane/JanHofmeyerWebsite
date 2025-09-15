@@ -1,0 +1,126 @@
+﻿@model List<JanHofmeyerWebsite.Models.GalleryItem>
+@{
+    ViewData["Title"] = "Gallery";
+}
+
+<div class="gallery-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Photo Gallery</h1>
+        <p class="lead">See our community in action through photos of our programs, events, and the amazing people we serve.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- Category Filter -->
+    <div class="text-center mb-4">
+        <button class="btn btn-outline-info me-2 filter-btn active" data-filter="all">All</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Volunteering">Volunteering</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Education">Education</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Senior Care">Senior Care</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Food Security">Food Security</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Health">Health</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Team">Team</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Events">Events</button>
+        <button class="btn btn-outline-info me-2 filter-btn" data-filter="Infrastructure">Infrastructure</button>
+    </div>
+
+    <div class="row" id="gallery-container">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 col-sm-6 mb-4 gallery-item" data-category="@item.Category">
+                <div class="card h-100 shadow-sm">
+                    @if (item.MediaType == "Image")
+                    {
+                        <img src="@item.MediaUrl" class="card-img-top" alt="@item.Title" style="height: 250px; object-fit: cover; cursor: pointer;"
+                             data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImage('@item.MediaUrl', '@item.Title')">
+                    }
+                    else if (item.MediaType == "Video")
+                    {
+                        <div class="ratio ratio-16x9">
+                            <video controls class="card-img-top">
+                                <source src="@item.MediaUrl" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    }
+                    <div class="card-body">
+                        <span class="badge bg-info mb-2">@item.Category</span>
+                        <h6 class="card-title">@item.Title</h6>
+                        <p class="card-text small">@item.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <p class="text-muted">No gallery items available at the moment.</p>
+        </div>
+    }
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h3 class="mb-4">Capturing Our Impact</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <h2 class="text-info">500+</h2>
+                <p>Photos in Our Archive</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-info">50+</h2>
+                <p>Events Documented</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-info">12</h2>
+                <p>Years of Memories</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="text-info">1000+</h2>
+                <p>People Featured</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showImage(url, title) {
+            document.getElementById('modalImage').src = url;
+            document.getElementById('imageTitle').textContent = title;
+        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+}

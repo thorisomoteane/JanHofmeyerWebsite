@@ -1,0 +1,154 @@
+﻿@model List<JanHofmeyerWebsite.Models.Event>
+@{
+    ViewData["Title"] = "Events";
+    var recentEvents = ViewBag.RecentEvents as List<JanHofmeyerWebsite.Models.Event>;
+}
+
+<div class="events-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Community Events</h1>
+        <p class="lead">Join us at our upcoming events and be part of building a stronger, more connected community together.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-5">Upcoming Events</h2>
+
+    <div class="row">
+        @foreach (var evt in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <span class="badge bg-@(evt.Category == "Registration Open" ? "success" : evt.Category == "Coming Soon" ? "warning" : "secondary")">
+                                @evt.Category
+                            </span>
+                            <span class="badge bg-info">@evt.Tag</span>
+                        </div>
+
+                        <h4 class="card-title">@evt.Title</h4>
+                        <p class="card-text">@evt.ShortSummary</p>
+
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-calendar"></i> @evt.EventDate.ToString("dddd, d MMMM yyyy")</li>
+                            <li><i class="fas fa-clock"></i> @evt.EventTime</li>
+                            <li><i class="fas fa-map-marker-alt"></i> @evt.Location</li>
+                            <li><i class="fas fa-users"></i> Expected: @evt.ExpectedAttendees people</li>
+                        </ul>
+
+                        @if (evt.Category == "Registration Open")
+                        {
+                            <button class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#registerModal"
+                                    onclick="setEventId(@evt.Id, '@evt.Title')">
+                                Register Now
+                            </button>
+                        }
+                        else if (evt.Category == "Coming Soon")
+                        {
+                            <button class="btn btn-secondary w-100" disabled>Registration Opens Soon</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary w-100" disabled>Invite Only</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <p class="text-muted">No upcoming events at the moment. Check back soon!</p>
+        </div>
+    }
+</div>
+
+@if (recentEvents != null && recentEvents.Any())
+{
+    <div class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Recent Events & Impact</h2>
+            <div class="row">
+                @foreach (var recent in recentEvents)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">@recent.Title</h5>
+                                <p class="text-muted">@recent.EventDate.ToString("dddd, d MMMM yyyy")</p>
+                                <p><i class="fas fa-users text-success"></i> @recent.ActualAttendees attendees</p>
+                                @if (!string.IsNullOrEmpty(recent.GoalsAchieved))
+                                {
+                                    <p class="text-success">@recent.GoalsAchieved</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div class="container my-5">
+    <div class="text-center">
+        <h3 class="mb-4">Stay Connected</h3>
+        <p class="mb-4">Don't miss out on our upcoming events! Get in touch with us to stay updated on all community activities.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/Contact" class="btn btn-info btn-lg">Get Event Updates</a>
+            <a href="/Events" class="btn btn-outline-info btn-lg">Organize an Event</a>
+        </div>
+    </div>
+</div>
+
+<!-- Registration Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Events" asp-action="Register" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title">Event Registration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="eventTitle" class="fw-bold"></p>
+                    <input type="hidden" name="EventId" id="eventId" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-control" name="FullName" required />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="FullName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-control" name="Email" required />
+                        <span class="text-danger field-validation-valid" data-valmsg-for="Email"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" name="Phone" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function setEventId(id, title) {
+            document.getElementById('eventId').value = id;
+            document.getElementById('eventTitle').textContent = 'Registering for: ' + title;
+        }
+    </script>
+}

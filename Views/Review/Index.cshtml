@@ -1,0 +1,167 @@
+﻿@model List<JanHofmeyerWebsite.Models.Review>
+@{
+    ViewData["Title"] = "Reviews";
+    var averageRating = Model.Any() ? Model.Average(r => r.Rating) : 0;
+    var totalReviews = Model.Count;
+}
+
+<div class="review-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Community Reviews</h1>
+        <p class="lead">Share your experience and read what others say about our services. Your feedback helps us improve and serve our community better.</p>
+        <div class="mt-4">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <i class="fas fa-star @(i <= averageRating ? "" : "text-white-50")" style="font-size: 1.5rem;"></i>
+            }
+            <p class="mt-2">@averageRating.ToString("0.0") out of 5 stars</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h4 class="card-title">Share Your Experience</h4>
+
+                    <form method="post" action="/Review/Submit">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" class="form-control" name="ReviewerName" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Service Used *</label>
+                            <select class="form-select" name="ServiceUsed" required>
+                                <option value="">Select a service</option>
+                                <option value="Youth Development Program">Youth Development Program</option>
+                                <option value="Community Food Garden">Community Food Garden</option>
+                                <option value="Senior Care Initiative">Senior Care Initiative</option>
+                                <option value="Digital Literacy Program">Digital Literacy Program</option>
+                                <option value="Housing Support Project">Housing Support Project</option>
+                                <option value="Microenterprise Development">Microenterprise Development</option>
+                                <option value="General Services">General Services</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Rating *</label>
+                            <div class="star-rating">
+                                @for (int i = 5; i >= 1; i--)
+                                {
+                                    <input type="radio" name="Rating" value="@i" id="star@(i)" required />
+                                    <label for="star@(i)"><i class="fas fa-star"></i></label>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Your Review *</label>
+                            <textarea class="form-control" name="ReviewMessage" rows="4"
+                                      placeholder="Tell us about your experience..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3>Recent Reviews</h3>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <h4>@totalReviews</h4>
+                            <small class="text-muted">Total Reviews</small>
+                        </div>
+                        <div class="col-4">
+                            <h4>@averageRating.ToString("0.0")</h4>
+                            <small class="text-muted">Average Rating</small>
+                        </div>
+                        <div class="col-4">
+                            <h4>95%</h4>
+                            <small class="text-muted">Happy Clients</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Any())
+            {
+                foreach (var review in Model.OrderByDescending(r => r.ReviewDate))
+                {
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">@review.ReviewerName</h5>
+                                    <span class="text-muted small">@review.ServiceUsed</span>
+                                </div>
+                                <div class="text-end">
+                                    <div class="mb-1">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <i class="fas fa-star @(i <= review.Rating ? "text-warning" : "text-muted")"></i>
+                                        }
+                                    </div>
+                                    <small class="text-muted">@review.ReviewDate.ToString("dd/MM/yyyy")</small>
+                                </div>
+                            </div>
+                            <p class="mt-3">@review.ReviewMessage</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <p class="text-muted">No reviews yet. Be the first to share your experience!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ddd;
+            transition: color 0.2s;
+        }
+
+            .star-rating label:hover,
+            .star-rating label:hover ~ label,
+            .star-rating input:checked ~ label {
+                color: #ffc107;
+            }
+</style>
+
+@section Scripts {
+    <script>
+        // Optional: Add form validation feedback
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+                submitBtn.disabled = true;
+            }
+        });
+    </script>
+}

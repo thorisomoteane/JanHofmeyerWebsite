@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Jan Hofmeyer CS</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/JanHofmeyerWebsite.styles.css" asp-append-version="true" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <i class="fas fa-heart text-info me-2"></i>
+                    <span class="fw-bold">Jan Hofmeyer CS</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" && ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")" href="/Home/About">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Projects" ? "active" : "")" href="/Projects">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Events" ? "active" : "")" href="/Events">Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Gallery" ? "active" : "")" href="/Gallery">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Contact" ? "active" : "")" href="/Contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Review" ? "active" : "")" href="/Review">Review</a>
+                        </li>
+                        <li class="nav-item ms-2">
+                            <a class="btn btn-warning text-white px-4" href="/Donate">Donate</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main style="padding-top: 76px;">
+        <!-- Alert Messages -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
+                <i class="fas fa-check-circle me-2"></i>@TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>@TempData["Error"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @RenderBody()
+    </main>
+
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-3">
+                        <i class="fas fa-heart text-info"></i> Jan Hofmeyer Community Services
+                    </h5>
+                    <p class="text-white-50">Empowering communities • Creating opportunities • Building hope</p>
+                    <p class="text-white-50 small">
+                        NPO Registration: 009/757/NPO<br>
+                        Section 21 Company<br>
+                        Level 4 BBEEE Compliant
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/Home/About" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="/Projects" class="text-white-50 text-decoration-none">Our Projects</a></li>
+                        <li class="mb-2"><a href="/Events" class="text-white-50 text-decoration-none">Events</a></li>
+                        <li class="mb-2"><a href="/Gallery" class="text-white-50 text-decoration-none">Gallery</a></li>
+                        <li class="mb-2"><a href="/Contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3">Get Involved</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/Donate" class="text-white-50 text-decoration-none">Make a Donation</a></li>
+                        <li class="mb-2"><a href="/Contact" class="text-white-50 text-decoration-none">Volunteer</a></li>
+                        <li class="mb-2"><a href="/Contact" class="text-white-50 text-decoration-none">Partner With Us</a></li>
+                        <li class="mb-2"><a href="/Review" class="text-white-50 text-decoration-none">Leave a Review</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h6 class="mb-3">Connect With Us</h6>
+                    <div class="social-links mb-3">
+                        <a href="#" class="text-white-50 me-3" title="Facebook">
+                            <i class="fab fa-facebook fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white-50 me-3" title="Instagram">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white-50 me-3" title="WhatsApp">
+                            <i class="fab fa-whatsapp fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-white-50" title="Email">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </a>
+                    </div>
+                    <p class="text-white-50 small">
+                        <i class="fas fa-phone"></i> +27 (0)49 123 4567<br>
+                        <i class="fas fa-envelope"></i> info@janhofmeyercs.org.za<br>
+                        <i class="fas fa-map-marker-alt"></i> Jan Hofmeyer, Eastern Cape
+                    </p>
+                </div>
+            </div>
+
+            <hr class="my-4 border-secondary">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-white-50 small mb-0">
+                        © @DateTime.Now.Year Jan Hofmeyer Community Services. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-white-50 small mb-0">
+                        <a href="#" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                        <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery (required for Bootstrap JavaScript plugins) -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Bundle JS (includes Popper) -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Auto-hide alerts after 5 seconds -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                });
+            }, 5000);
+
+            // Add active class to current nav item
+            var currentPath = window.location.pathname;
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active', 'fw-bold');
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

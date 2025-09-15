@@ -1,0 +1,83 @@
+﻿@model JanHofmeyerWebsite.ViewModels.HomeViewModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 80px 0;">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-4">Empowering Communities,<br>Changing Lives</h1>
+        <p class="lead mb-5">Jan Hofmeyer Community Services has spent over twenty years making a<br>difference in people's lives and fostering resilient communities.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="/Donate" class="btn btn-primary btn-lg px-5">Make Donation</a>
+            <a href="/About" class="btn btn-outline-light btn-lg px-5">Learn More</a>
+        </div>
+    </div>
+</div>
+
+<div class="stats-section py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <i class="fas fa-users fa-3x text-info mb-3"></i>
+                <h2>@Model.TotalPeopleHelped.ToString("N0")+</h2>
+                <p class="text-muted">People Helped</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-heart fa-3x text-info mb-3"></i>
+                <h2>@Model.TotalVolunteers+</h2>
+                <p class="text-muted">Volunteers</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-project-diagram fa-3x text-info mb-3"></i>
+                <h2>@Model.ActiveProjects</h2>
+                <p class="text-muted">Projects</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-calendar fa-3x text-info mb-3"></i>
+                <h2>@Model.YearsOfService</h2>
+                <p class="text-muted">Years of existence</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mission-section py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4">Our Mission</h2>
+        <p class="lead mx-auto" style="max-width: 800px;">
+            Jan Hofmeyer Community has a mission of to empower communities through<br>
+            sustainable development programs, educational initiatives, and support services that<br>
+            create lasting positive change in people's lives.
+        </p>
+    </div>
+</div>
+
+<div class="featured-projects py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Projects</h2>
+        <div class="row">
+            @foreach (var project in Model.FeaturedProjects)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(project.ImageUrl))
+                        {
+                            <img src="@project.ImageUrl" class="card-img-top" alt="@project.Title">
+                        }
+                        <div class="card-body">
+                            <span class="badge bg-info mb-2">@project.Theme</span>
+                            <h5 class="card-title">@project.Title</h5>
+                            <p class="card-text">@project.ShortSummary</p>
+                            <p class="text-muted">
+                                <i class="fas fa-users"></i> @project.PeopleImpacted+ people impacted
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-4">
+            <a href="/Projects" class="btn btn-info">View All Projects</a>
+        </div>
+    </div>
+</div>

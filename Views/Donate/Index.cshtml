@@ -1,0 +1,215 @@
+﻿@{
+    ViewData["Title"] = "Donate";
+}
+
+<div class="donate-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Make a Difference Today</h1>
+        <p class="lead">Your donation directly supports our community programs and helps us create lasting positive change in people's lives.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row mb-5">
+        <div class="col-md-12 text-center">
+            <h2 class="mb-4">Your Impact</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="impact-card">
+                        <i class="fas fa-heart fa-3x text-info mb-3"></i>
+                        <h3 class="text-info">R50</h3>
+                        <p>Provides a week of meals for one family</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="impact-card">
+                        <i class="fas fa-users fa-3x text-info mb-3"></i>
+                        <h3 class="text-info">R100</h3>
+                        <p>Sponsors educational materials for 5 children</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="impact-card">
+                        <i class="fas fa-bolt fa-3x text-info mb-3"></i>
+                        <h3 class="text-info">R250</h3>
+                        <p>Funds a skills training workshop</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="impact-card">
+                        <i class="fas fa-shield-alt fa-3x text-info mb-3"></i>
+                        <h3 class="text-info">R500</h3>
+                        <p>Supports our youth program for one month</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Donate Now</h3>
+                    <p>All donations are secure and directly support our community programs.</p>
+
+                    <div class="donation-amounts mb-4">
+                        <h5>Donation Amount (ZAR)</h5>
+                        <div class="row">
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="50">R50</button>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="100">R100</button>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="250">R250</button>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="500">R500</button>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="1000">R1000</button>
+                            </div>
+                            <div class="col-4 mb-2">
+                                <button class="btn btn-outline-info w-100 amount-btn" data-amount="2500">R2500</button>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label>Enter custom amount:</label>
+                            <input type="number" class="form-control" id="customAmount" placeholder="Enter amount">
+                        </div>
+                    </div>
+
+                    <div class="donation-frequency mb-4">
+                        <h5>Donation Frequency</h5>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="frequency" id="oneTime" checked>
+                            <label class="form-check-label" for="oneTime">One-time donation</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="frequency" id="monthly">
+                            <label class="form-check-label" for="monthly">Monthly donation</label>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <h5>Banking Details</h5>
+                        <p class="mb-1"><strong>Account Name:</strong> Jan Hofmeyer Community Services</p>
+                        <p class="mb-1"><strong>Bank:</strong> First National Bank</p>
+                        <p class="mb-1"><strong>Account Number:</strong> 1234567890</p>
+                        <p class="mb-1"><strong>Branch Code:</strong> 250655</p>
+                        <p class="mb-0"><strong>Reference:</strong> Your Name + "Donation"</p>
+                    </div>
+
+                    <p class="text-muted small mt-3">
+                        <i class="fas fa-info-circle"></i> Please email proof of payment to donations@janhofmeyercs.org.za
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4><i class="fas fa-shield-alt text-info"></i> Secure & Trusted</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-check text-success"></i> SSL encrypted and secure processing</li>
+                        <li><i class="fas fa-check text-success"></i> 100% of donations go to community programs</li>
+                        <li><i class="fas fa-check text-success"></i> Tax-deductible receipts provided</li>
+                        <li><i class="fas fa-check text-success"></i> Cancel monthly donations anytime</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h4>How Your Donation Helps</h4>
+                    <div class="mt-3">
+                        <div class="mb-3">
+                            <strong>Youth Programs - 40%</strong>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 40%"></div>
+                            </div>
+                            <small>Skills training and mentorship</small>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Food Security - 30%</strong>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 30%"></div>
+                            </div>
+                            <small>Community gardens and meal programs</small>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Senior Care - 20%</strong>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 20%"></div>
+                            </div>
+                            <small>Healthcare and social support</small>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Operations - 10%</strong>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 10%"></div>
+                            </div>
+                            <small>Administrative and facility costs</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4>Other Ways to Give</h4>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2">
+                            <strong>Bank Transfer</strong><br>
+                            <small>
+                                Account: Jan Hofmeyer CS<br>
+                                Bank: First National Bank<br>
+                                Account: 1234567890
+                            </small>
+                        </li>
+                        <li class="mb-2">
+                            <strong>In-Kind Donations</strong><br>
+                            <small>Contact us about donating goods or services</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light py-5">
+    <div class="container text-center">
+        <h3 class="mb-4">Thank You to Our Donors</h3>
+        <p class="mb-4">Every contribution, no matter the size, makes a real difference in our community. Together, we're building a stronger, more supportive environment for everyone.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="text-info">R 2.5M+</h2>
+                <p>Total Donations Received</p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-info">850+</h2>
+                <p>Individual Donors</p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="text-info">15</h2>
+                <p>Programs Funded</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('customAmount').value = this.getAttribute('data-amount');
+            });
+        });
+    </script>
+}

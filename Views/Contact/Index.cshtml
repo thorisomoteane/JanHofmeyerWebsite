@@ -1,0 +1,238 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="contact-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); color: white; padding: 60px 0;">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Get in Touch</h1>
+        <p class="lead">We'd love to hear from you! Whether you want to volunteer, make an inquiry, or just learn more about our work.</p>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row mb-5">
+        <div class="col-md-3 text-center">
+            <div class="contact-info">
+                <i class="fas fa-map-marker-alt fa-2x text-info mb-3"></i>
+                <h5>Address</h5>
+                <p>
+                    123 Community Street<br>
+                    Jan Hofmeyer, Eastern Cape<br>
+                    5973, South Africa
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="contact-info">
+                <i class="fas fa-phone fa-2x text-info mb-3"></i>
+                <h5>Phone</h5>
+                <p>
+                    +27 (0)49 123 4567<br>
+                    +27 (0)82 345 6789 (Mobile)
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="contact-info">
+                <i class="fas fa-envelope fa-2x text-info mb-3"></i>
+                <h5>Email</h5>
+                <p>
+                    info@@janhofmeyercs.org.za<br>
+                    volunteers@@janhofmeyercs.org.za
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="contact-info">
+                <i class="fas fa-clock fa-2x text-info mb-3"></i>
+                <h5>Office Hours</h5>
+                <p>
+                    Monday - Friday: 8:00 AM - 5:00 PM<br>
+                    Saturday: 9:00 AM - 1:00 PM<br>
+                    Sunday: Closed
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Send us a Message</h3>
+                    <p class="text-muted">Have a question or want to learn more? We're here to help.</p>
+
+                    <form action="/Contact/SendMessage" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" name="fullName" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" name="email" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Inquiry Type</label>
+                            <select class="form-select" name="inquiryType">
+                                <option value="General">General Inquiry</option>
+                                <option value="Volunteer">Volunteering</option>
+                                <option value="Donation">Donation</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Subject *</label>
+                            <input type="text" class="form-control" name="subject" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Message *</label>
+                            <textarea class="form-control" name="message" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Volunteer Application</h3>
+                    <p class="text-muted">Join our team of dedicated volunteers and make a difference in your community.</p>
+
+                    <form action="/Contact/SubmitVolunteerApplication" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" name="fullName" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" name="email" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" name="phone" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Age Group</label>
+                            <select class="form-select" name="ageGroup" required>
+                                <option value="">Select age group</option>
+                                <option value="18-25">18-25</option>
+                                <option value="26-35">26-35</option>
+                                <option value="36-45">36-45</option>
+                                <option value="46-55">46-55</option>
+                                <option value="56-65">56-65</option>
+                                <option value="65+">65+</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Availability</label>
+                            <select class="form-select" name="availability" required>
+                                <option value="">Select your availability</option>
+                                <option value="Weekdays">Weekdays</option>
+                                <option value="Weekends">Weekends</option>
+                                <option value="Evenings">Evenings</option>
+                                <option value="Flexible">Flexible</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Areas of Interest *</label>
+                            <textarea class="form-control" name="areasOfInterest" rows="3"
+                                      placeholder="Which programs or activities interest you most?" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Relevant Experience</label>
+                            <textarea class="form-control" name="relevantExperience" rows="3"
+                                      placeholder="Tell us about any relevant experience or skills you have..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-100">
+                            Submit Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h4>Follow Us</h4>
+            <p>Stay connected with us on social media for updates and stories.</p>
+            <div class="social-links">
+                <a href="#" class="btn btn-outline-info me-2">
+                    <i class="fab fa-facebook"></i> @@janhofmeyercs
+                </a>
+                <a href="#" class="btn btn-outline-info me-2">
+                    <i class="fab fa-instagram"></i> @@janhofmeyercs
+                </a>
+                <a href="#" class="btn btn-outline-info">
+                    <i class="fab fa-whatsapp"></i> +27 82 345 6789
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Visit Us</h4>
+            <p>Come visit our community center and see our programs in action.</p>
+            <div class="card">
+                <div class="card-body">
+                    <h6>Main Office</h6>
+                    <p>
+                        123 Community Street<br>
+                        Jan Hofmeyer, Eastern Cape<br>
+                        5973, South Africa
+                    </p>
+                    <h6>Directions</h6>
+                    <p>Located in the heart of Jan Hofmeyer, next to the municipal offices. Public transport and parking available.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light py-5 mt-5">
+    <div class="container text-center">
+        <h3>Quick Response</h3>
+        <div class="row mt-4">
+            <div class="col-md-3">
+                <i class="fas fa-envelope fa-2x text-info mb-2"></i>
+                <p>Email inquiries<br><strong>24 hours</strong></p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-user-plus fa-2x text-info mb-2"></i>
+                <p>Volunteer applications<br><strong>48 hours</strong></p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-phone fa-2x text-info mb-2"></i>
+                <p>Phone calls<br><strong>Same day</strong></p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-exclamation-circle fa-2x text-info mb-2"></i>
+                <p>Emergency<br><strong>Immediate</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
